@@ -93,7 +93,7 @@ predicted_price = model.predict(new_house)
 print("\n===== NEW HOUSE PREDICTION =====")
 print("Predicted House Price:", predicted_price[0])
 
-# residual plot to check the errors in the prediction
+# residual error graph to check the errors in the prediction.
 errors = y_test - predict
 
 plt.scatter(predict, errors)
@@ -106,13 +106,22 @@ plt.title("Residual Plot")
 
 plt.savefig("residual_plot.png")
 
-#actual v/s predicted values
+#actual v/s predicted values.
 plt.figure(figsize=(8,6))
 
 plt.scatter(y_test, predict, color='blue')
+
+# perfect prediction line
+plt.plot(
+    [y_test.min(), y_test.max()],
+    [y_test.min(), y_test.max()],
+    color='red',
+    linewidth=2
+)
 
 plt.xlabel("Actual Prices")
 plt.ylabel("Predicted Prices")
 plt.title("Actual vs Predicted House Prices")
 
 plt.savefig("prediction_graph.png")
+plt.show()
