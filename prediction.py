@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # dataset was loaded 
 data = pd.read_csv('train.csv')
@@ -92,4 +93,26 @@ predicted_price = model.predict(new_house)
 print("\n===== NEW HOUSE PREDICTION =====")
 print("Predicted House Price:", predicted_price[0])
 
+# residual plot to check the errors in the prediction
+errors = y_test - predict
 
+plt.scatter(predict, errors)
+
+plt.axhline(y=0, color='red')
+
+plt.xlabel("Predicted")
+plt.ylabel("Errors")
+plt.title("Residual Plot")
+
+plt.savefig("residual_plot.png")
+
+#actual v/s predicted values
+plt.figure(figsize=(8,6))
+
+plt.scatter(y_test, predict, color='blue')
+
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs Predicted House Prices")
+
+plt.savefig("prediction_graph.png")
