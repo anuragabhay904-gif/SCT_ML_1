@@ -59,10 +59,14 @@ mse = mean_squared_error(y_test, predict)
 rmse = np.sqrt(mse)
 r2 = r2_score(y_test, predict)
 
+# converting R2 score into percentage
+accuracy = r2 * 100
+
 print("MAE :", mae)
 print("MSE :", mse)
 print("RMSE:", rmse)
 print("R2 Score:", r2)
+print("Accuracy:", accuracy, "%")
 
 
 # lets also add the coeffeciets to check how the different features affect the model 
@@ -111,17 +115,8 @@ plt.figure(figsize=(8,6))
 
 plt.scatter(y_test, predict, color='blue')
 
-# perfect prediction line
-plt.plot(
-    [y_test.min(), y_test.max()],
-    [y_test.min(), y_test.max()],
-    color='red',
-    linewidth=2
-)
-
 plt.xlabel("Actual Prices")
 plt.ylabel("Predicted Prices")
 plt.title("Actual vs Predicted House Prices")
 
 plt.savefig("prediction_graph.png")
-plt.show()
