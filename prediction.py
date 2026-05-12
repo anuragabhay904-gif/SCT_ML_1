@@ -43,11 +43,38 @@ from sklearn.linear_model import LinearRegression
 
 model = LinearRegression()
 # we have created a model ,lets train the model.
-model.fit(X_train,y_test)
+model.fit(X_train,y_train)
 
 # Training is done , lets predict the value now 
 predict = model.predict(X_test)
 
+# Now we need some parameters to evaluate the model
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+
+mae = mean_absolute_error(y_test, predict)
+mse = mean_squared_error(y_test, predict)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_test, predict)
+
+print("MAE :", mae)
+print("MSE :", mse)
+print("RMSE:", rmse)
+print("R2 Score:", r2)
+
+
+# lets also add the coeffeciets to check how the different features affect the model 
+coefficients = pd.DataFrame({
+    'Feature': features,
+    'Coefficient': model.coef_
+})
+
+print("\n===== MODEL COEFFICIENTS =====")
+print(coefficients)
+
+
+# Now we have the model lets predict for some new values
 new_house = pd.DataFrame({
     'GrLivArea': [2000],
     'BedroomAbvGr': [3],
