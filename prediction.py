@@ -120,3 +120,23 @@ plt.ylabel("Predicted Prices")
 plt.title("Actual vs Predicted House Prices")
 
 plt.savefig("prediction_graph.png")
+
+# Load the Kaggle test data
+test_data = pd.read_csv("test.csv")
+
+# Use only the features your model needs
+X_kaggle_test = test_data[features].fillna(0)  # fill missing values
+
+# Predict using your trained model
+kaggle_predictions = model.predict(X_kaggle_test)
+
+# Create submission dataframe
+submission = pd.DataFrame({
+    "Id": test_data["Id"],
+    "SalePrice": kaggle_predictions
+})
+
+# Save to CSV
+submission.to_csv("my_first_submission.csv", index=False)
+
+print("Submission file created: my_first_submission.csv")
